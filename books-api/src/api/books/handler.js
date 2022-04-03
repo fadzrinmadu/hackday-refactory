@@ -26,9 +26,26 @@ exports.getBooksHandler = async (request, response, next) => {
     const books = await booksService.getNotes();
 
     return response.status(200).json({
-      message: 'success',
+      status: 'success',
       data: {
         books,
+      },
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+exports.getBookByIdHandler = async (request, response, next) => {
+  try {
+    const { id } = request.params;
+
+    const book = await booksService.getNoteById(id);
+
+    return response.status(200).json({
+      status: 'success',
+      data: {
+        book,
       },
     });
   } catch (error) {

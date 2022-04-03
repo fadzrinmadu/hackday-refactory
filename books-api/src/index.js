@@ -1,12 +1,14 @@
 require('dotenv').config();
 
 const express = require('express');
+const cors = require('cors');
 const booksRouter = require('./api/books/router');
 const ClientError = require('./exceptions/ClientError');
 
 const app = express();
 const port = process.env.PORT;
 
+app.use(cors());
 app.use(express.json());
 
 app.use('/api/v1/books', booksRouter);

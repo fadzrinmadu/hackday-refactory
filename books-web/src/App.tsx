@@ -1,10 +1,23 @@
-import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import AddBookForm from './pages/AddBookForm';
+import EditBookForm from './pages/EditBookForm';
 
 function App() {
   return (
-    <div className="App">
-      <h1>Hello World</h1>
-    </div>
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <Home />
+        </Route>
+        <Route exact path="/add">
+          <AddBookForm />
+        </Route>
+        <Route exact path="/edit/:id">
+          <EditBookForm />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 

@@ -1,10 +1,16 @@
 import 'react-confirm-alert/src/react-confirm-alert.css';
 
 import { Button } from "react-bootstrap";
-import { Link, useHistory } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { PencilSquare, TrashFill } from "react-bootstrap-icons";
 import { confirmAlert } from 'react-confirm-alert';
 import { deleteBookById } from "../../services/books";
+
+interface SetMessageProps {
+  type: string;
+  text: string;
+  active: boolean;
+}
 
 interface RowProps {
   rowNumber: number;
@@ -16,14 +22,13 @@ interface RowProps {
   bookYear: string;
   bookPublisher: string;
   fetchAllBooks: () => void;
+  setMessage: (data: SetMessageProps) => void;
 }
 
 export default function Row(props: RowProps) {
   const {
-    rowNumber, bookId, bookIsbn, bookName, bookAuthor, bookSummary, bookYear, bookPublisher, fetchAllBooks,
+    rowNumber, bookId, bookIsbn, bookName, bookAuthor, bookSummary, bookYear, bookPublisher, fetchAllBooks, setMessage,
   } = props;
-
-  const history = useHistory();
 
   const confirmDelete = (id: string) => {
     confirmAlert({
@@ -47,7 +52,19 @@ export default function Row(props: RowProps) {
 
     if (result.status === 'success') {
       fetchAllBooks();
-      history.push('/');
+
+      setMessage({
+        type: 'success',
+        text: 'Successfully deleted book data',
+        active: true,
+      });
+    } else {
+
+      setMessage({
+        type: 'danger',
+        text: result.message,
+        active: true,
+      });
     }
   };
 

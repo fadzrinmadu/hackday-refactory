@@ -1,6 +1,9 @@
+import 'react-confirm-alert/src/react-confirm-alert.css';
+
 import { Button } from "react-bootstrap";
 import { Link, useHistory } from 'react-router-dom';
 import { PencilSquare, TrashFill } from "react-bootstrap-icons";
+import { confirmAlert } from 'react-confirm-alert';
 import { deleteBookById } from "../../services/books";
 
 interface RowProps {
@@ -19,6 +22,23 @@ export default function Row(props: RowProps) {
   } = props;
 
   const history = useHistory();
+
+  const confirmDelete = (id: string) => {
+    confirmAlert({
+      title: 'Confirm to delete',
+      message: 'Are you sure want to delete this data?',
+      buttons: [
+        {
+          label: 'Yes',
+          onClick: () => actionDelete(id),
+        },
+        {
+          label: 'No',
+          onClick: () => false,
+        },
+      ],
+    });
+  };
 
   const actionDelete = async (id: string) => {
     const result = await deleteBookById(id);
@@ -42,7 +62,7 @@ export default function Row(props: RowProps) {
           <span>Edit</span>
         </Link>
         {` `}
-        <Button variant="danger" size="sm" onClick={() => actionDelete(bookId)}>
+        <Button variant="danger" size="sm" onClick={() => confirmDelete(bookId)}>
           <TrashFill />
           <span>Delete</span>
         </Button>

@@ -9,8 +9,10 @@ import { deleteBookById } from "../../services/books";
 interface RowProps {
   rowNumber: number;
   bookId: string;
+  bookIsbn: string;
   bookName: string;
   bookAuthor: string;
+  bookSummary: string;
   bookYear: string;
   bookPublisher: string;
   fetchAllBooks: () => void;
@@ -18,7 +20,7 @@ interface RowProps {
 
 export default function Row(props: RowProps) {
   const {
-    rowNumber, bookId, bookName, bookAuthor, bookYear, bookPublisher, fetchAllBooks,
+    rowNumber, bookId, bookIsbn, bookName, bookAuthor, bookSummary, bookYear, bookPublisher, fetchAllBooks,
   } = props;
 
   const history = useHistory();
@@ -51,20 +53,24 @@ export default function Row(props: RowProps) {
 
   return (
     <tr>
-      <td className="text-center">{rowNumber}</td>
+      <td>{rowNumber}</td>
+      <td>{bookIsbn}</td>
       <td>{bookName}</td>
       <td>{bookAuthor}</td>
+      <td>{bookSummary}</td>
       <td>{bookYear}</td>
       <td>{bookPublisher}</td>
       <td className="text-center">
         <Link to={`/edit/${bookId}`} className="btn btn-secondary btn-sm">
           <PencilSquare />
-          <span>Edit</span>
+          {' '}
+          {/* <span>Edit</span> */}
         </Link>
         {` `}
         <Button variant="danger" size="sm" onClick={() => confirmDelete(bookId)}>
           <TrashFill />
-          <span>Delete</span>
+          {' '}
+          {/* <span>Delete</span> */}
         </Button>
       </td>
     </tr>

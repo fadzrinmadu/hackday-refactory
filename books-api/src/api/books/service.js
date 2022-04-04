@@ -4,6 +4,14 @@ const { mapDBToModel } = require('../../utils');
 const InvariantError = require('../../exceptions/InvariantError');
 const NotFoundError = require('../../exceptions/NotFoundError');
 
+const {
+  ADD_BOOK_QUERY,
+  GET_BOOKS_QUERY,
+  GET_BOOK_DETAIL_QUERY,
+  UPDATE_BOOK_QUERY,
+  DELETE_BOOK_QUERY,
+} = require('../../queries');
+
 const pool = new Pool();
 
 exports.addBook = async (payload) => {
@@ -20,12 +28,6 @@ exports.addBook = async (payload) => {
   const createdAt = new Date().toISOString();
   const updatedAt = createdAt;
 
-  const queryText = `
-    INSERT INTO books
-    VALUES($1, $2, $3, $4, $5, $6, $7, $8, $9)
-    RETURNING id
-  `;
-
   const newBook = [
     id,
     isbn,
@@ -39,7 +41,7 @@ exports.addBook = async (payload) => {
   ];
 
   const query = {
-    text: queryText,
+    text: ADD_BOOK_QUERY,
     values: newBook,
   };
 
@@ -54,7 +56,7 @@ exports.addBook = async (payload) => {
 
 exports.getNotes = async () => {
   const query = {
-    text: 'SELECT * FROM books',
+    text: GET_BOOKS_QUERY,
   };
 
   const result = await pool.query(query);
@@ -65,7 +67,7 @@ exports.getNotes = async () => {
 
 exports.getNoteById = async (id) => {
   const query = {
-    text: 'SELECT * FROM books WHERE id = $1',
+    text: GET_BOOK_DETAIL_QUERY,
     values: [id],
   };
 
@@ -92,18 +94,8 @@ exports.editBookById = async (id, payload) => {
 
   const updatedAt = new Date().toISOString();
 
-  const queryText = `
-    UPDATE books
-    SET isbn = $1, name = $2,
-      author = $3, summary = $4,
-      year = $5, publisher = $6,
-      updated_at = $7
-    WHERE id = $8
-    RETURNING id
-  `;
-
   const query = {
-    text: queryText,
+    text: UPDATE_BOOK_QUERY,
     values: [isbn, name, author, summary, year, publisher, updatedAt, id],
   };
 
@@ -116,7 +108,7 @@ exports.editBookById = async (id, payload) => {
 
 exports.deleteBookById = async (id) => {
   const query = {
-    text: 'DELETE FROM books WHERE id = $1 RETURNING id',
+    text: DELETE_BOOK_QUERY,
     values: [id],
   };
 

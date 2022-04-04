@@ -19,7 +19,7 @@ export default function AddBookForm() {
           </Col>
         </Row>
         <Row>
-          <Col sm={6}>
+          <Col>
             <BookFormAdd />
           </Col>
         </Row>

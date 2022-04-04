@@ -1,9 +1,10 @@
+import './style.css';
 import { Navbar, Container } from "react-bootstrap";
 
 export default function Topbar() {
   return (
     <>
-      <Navbar bg="dark" variant="dark">
+      <Navbar variant="dark" style={{ backgroundColor: '#2f1793' }}>
         <Container>
           <Navbar.Brand href="/">
             <img

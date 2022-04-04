@@ -25,12 +25,14 @@ export default function BookTable() {
     <Table striped bordered hover>
       <thead>
         <tr>
-          <th className="text-center">No</th>
+          <th style={{ width: '3%' }}>No</th>
+          <th style={{ width: '10%' }}>ISBN</th>
           <th>Book Name</th>
           <th>Author</th>
+          <th style={{ width: '30%' }}>Summary</th>
           <th>Year</th>
           <th>Publisher</th>
-          <th className="text-center">Action</th>
+          <th className="text-center" style={{ width: '10%' }}>Action</th>
         </tr>
       </thead>
       <tbody>
@@ -39,8 +41,10 @@ export default function BookTable() {
             key={book.id}
             rowNumber={++index}
             bookId={book.id}
+            bookIsbn={book.isbn}
             bookName={book.name}
             bookAuthor={book.author}
+            bookSummary={book.summary}
             bookYear={book.year}
             bookPublisher={book.publisher}
             fetchAllBooks={fetchAllBooks}

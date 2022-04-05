@@ -3,13 +3,24 @@ import { Button, Form } from "react-bootstrap";
 import { addBook } from "../../services/books";
 import Message from "../Message";
 
+interface BookState {
+  name: string;
+  isbn: string;
+  author: string;
+  summary: string;
+  year: string;
+  publisher: string;
+}
+
 export default function BookFormAdd() {
-  const [name, setName] = useState('');
-  const [isbn, setIsbn] = useState('');
-  const [author, setAuthor] = useState('');
-  const [summary, setSummary] = useState('');
-  const [year, setYear] = useState('');
-  const [publisher, setPublisher] = useState('');
+  const [book, setBook] = useState<BookState>({
+    name: '',
+    isbn: '',
+    author: '',
+    summary: '',
+    year: '',
+    publisher: '',
+  });
 
   const [message, setMessage] = useState({
     type: '',
@@ -18,12 +29,14 @@ export default function BookFormAdd() {
   });
 
   const resetStateForm = () => {
-    setName('');
-    setIsbn('');
-    setAuthor('');
-    setSummary('');
-    setYear('');
-    setPublisher('');
+    setBook({
+      name: '',
+      isbn: '',
+      author: '',
+      summary: '',
+      year: '',
+      publisher: '',
+    });
   };
 
   const actionAddBook = async () => {
@@ -33,16 +46,7 @@ export default function BookFormAdd() {
       active: false,
     });
 
-    const newBook = {
-      name,
-      isbn,
-      author,
-      summary,
-      year,
-      publisher,
-    };
-
-    const result = await addBook(newBook);
+    const result = await addBook(book);
     resetStateForm();
 
     if (result.status === 'success') {
@@ -68,27 +72,27 @@ export default function BookFormAdd() {
 
       <Form.Group className="mb-3">
         <Form.Label>Book Name</Form.Label>
-        <Form.Control type="text" value={name} onChange={(event) => setName(event.target.value)} />
+        <Form.Control type="text" value={book.name} onChange={(event) => setBook({ ...book, name: event.target.value })} />
       </Form.Group>
       <Form.Group className="mb-3">
         <Form.Label>ISBN</Form.Label>
-        <Form.Control type="text" value={isbn} onChange={(event) => setIsbn(event.target.value)} />
+        <Form.Control type="text" value={book.isbn} onChange={(event) => setBook({ ...book, isbn: event.target.value })} />
       </Form.Group>
       <Form.Group className="mb-3">
         <Form.Label>Book Author</Form.Label>
-        <Form.Control type="text" value={author} onChange={(event) => setAuthor(event.target.value)} />
+        <Form.Control type="text" value={book.author} onChange={(event) => setBook({ ...book, author: event.target.value })} />
       </Form.Group>
       <Form.Group className="mb-3">
         <Form.Label>Summary</Form.Label>
-        <Form.Control as="textarea" rows={3} value={summary} onChange={(event) => setSummary(event.target.value)} />
+        <Form.Control as="textarea" rows={3} value={book.summary} onChange={(event) => setBook({ ...book, summary: event.target.value })} />
       </Form.Group>
       <Form.Group className="mb-3">
         <Form.Label>Publication Year</Form.Label>
-        <Form.Control type="text" value={year} onChange={(event) => setYear(event.target.value)} />
+        <Form.Control type="text" value={book.year} onChange={(event) => setBook({ ...book, year: event.target.value })} />
       </Form.Group>
       <Form.Group className="mb-3">
         <Form.Label>Publisher</Form.Label>
-        <Form.Control type="text" value={publisher} onChange={(event) => setPublisher(event.target.value)} />
+        <Form.Control type="text" value={book.publisher} onChange={(event) => setBook({ ...book, publisher: event.target.value })} />
       </Form.Group>
       <Button variant="primary" onClick={actionAddBook}>
         Submit

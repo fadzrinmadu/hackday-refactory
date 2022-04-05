@@ -1,5 +1,5 @@
 import 'react-confirm-alert/src/react-confirm-alert.css';
-
+import React from 'react';
 import { Button } from "react-bootstrap";
 import { Link } from 'react-router-dom';
 import { PencilSquare, TrashFill } from "react-bootstrap-icons";
@@ -25,7 +25,7 @@ interface RowProps {
   setMessage: (data: SetMessageProps) => void;
 }
 
-export default function Row(props: RowProps) {
+export default function Row(props: RowProps): React.FC<RowProps> {
   const {
     rowNumber, bookId, bookIsbn, bookName, bookAuthor, bookSummary, bookYear, bookPublisher, fetchAllBooks, setMessage,
   } = props;

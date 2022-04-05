@@ -7,15 +7,15 @@ exports.up = (pgm) => {
       primaryKey: true,
     },
     isbn: {
-      type: 'TEXT',
+      type: 'VARCHAR(13)',
       notNull: true,
     },
     name: {
-      type: 'TEXT',
+      type: 'VARCHAR(100)',
       notNull: true,
     },
     author: {
-      type: 'TEXT',
+      type: 'VARCHAR(100)',
       notNull: true,
     },
     summary: {
@@ -23,11 +23,11 @@ exports.up = (pgm) => {
       notNull: true,
     },
     year: {
-      type: 'TEXT',
+      type: 'VARCHAR(4)',
       notNull: true,
     },
     publisher: {
-      type: 'TEXT',
+      type: 'VARCHAR(100)',
       notNull: true,
     },
     created_at: {

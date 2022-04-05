@@ -1,10 +1,11 @@
+import React from 'react';
 import { Col, Container, Row } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Plus } from 'react-bootstrap-icons';
 import Topbar from '../components/Topbar';
 import BookTable from '../components/BookTable';
 
-export default function Home() {
+export default function Home(): React.ReactElement {
   return (
     <>
       <Topbar />
